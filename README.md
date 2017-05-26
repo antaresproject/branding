@@ -11,6 +11,8 @@
 
 Antares Branding Module gives a possibility of dividing the application into brands. By default, one main brand which is simultaneously the default brand is set during the system installation. Brands' functionalities provides the possibility of defining own color settings for the whole application, default composition of e-mail templates (header, style, footer), url, date and language settings. Dividing the application into areas is a superior function in relation to brands.
 
+![brands](docs/img/brands.png)
+
 ## Documentation
 
 Antares Branding Module documentation is not ready yet.
