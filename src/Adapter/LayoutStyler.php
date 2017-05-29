@@ -93,7 +93,7 @@ class LayoutStyler extends AbstractAdapter implements StylerAdapter
     {
         $return = '@media only screen and (max-width: 768px){
                         #app-wrapper aside.main-sidebar .main-sidebar__logo{
-                            background-image: url(' . brand_logo('big', '/img/theme/antares/logo/logo_mobile.png') . ') !important;
+                            background-image: url(/img/logos/logo_default_full_mobile.png) !important;
                         }}';
 
         if (!is_null($value = array_get($this->colors, 'main.value'))) {
