@@ -65,7 +65,7 @@ class BrandsMenu extends MenuHandler
      */
     public function authorize(Guard $auth)
     {
-        return !$auth->guest();
+        return !$auth->guest() && app('antares.acl')->make('antares')->can('brand-update');
     }
 
 }

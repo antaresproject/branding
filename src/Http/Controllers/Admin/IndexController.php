@@ -56,7 +56,6 @@ class IndexController extends AdminController implements BrandUpdater
     {
         $this->middleware('antares.auth');
         $this->middleware('antares.forms:brand-update', ['only' => ['edit', 'update']]);
-        //$this->middleware('antares.can:update-brand', ['only' => ['edit', 'update'],]);
     }
 
     /** ----------------------UPDATE ACTIONS---------------------- */
