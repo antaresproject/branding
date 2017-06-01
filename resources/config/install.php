@@ -17,8 +17,6 @@
  * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
 return [
     'default'  => [
         'colors'      => [
@@ -69,7 +67,6 @@ return [
     ],
     'optional' => [
         'colors'      => [
-
             'main'       =>
             [
                 'value' => '#fa6464',

@@ -18,7 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
 namespace Antares\Brands\Twig;
 
 use Antares\Brands\Facade\StylerFacade;
@@ -33,7 +32,7 @@ class Brand extends Twig_Extension
      *
      * @var String 
      */
-    protected static $logoPath = '/_dist/img/theme/antares/logo/';
+    protected static $logoPath = '/img/logos/';
 
     /**
      * {@inheritDoc}

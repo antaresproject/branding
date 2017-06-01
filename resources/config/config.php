@@ -20,9 +20,10 @@
 return [
     'per_page'     => 10,
     'logo'         => [
-        'default_path' => '/img/logos/',
-        'destination'  => public_path('img/logos'),
-        'rules'        => [
+        'default_white' => 'logo_white_full.png',
+        'default_path'  => '/img/logos/',
+        'destination'   => public_path('img/logos'),
+        'rules'         => [
             "acceptedFiles" => ['jpg', 'png', 'jpeg'],
             "maxFilesize"   => 9.765625,
             "minFilesize"   => 0.0009765625,
