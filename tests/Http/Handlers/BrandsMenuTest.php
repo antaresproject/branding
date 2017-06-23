@@ -71,10 +71,7 @@ class BrandsMenuTest extends TestCase
         $menu                                 = m::mock(Menu::class);
         $acl                                  = m::mock('Antares\Authorization\Factory')
                 ->shouldReceive('make')
-                ->with("antares/widgets")
-                ->andReturnSelf()
-                ->shouldReceive('make')
-                ->with("antares/brands")
+                ->with("antares")
                 ->andReturnSelf()
                 ->shouldReceive("can")
                 ->with(m::type("String"))
@@ -86,8 +83,11 @@ class BrandsMenuTest extends TestCase
         $this->app['antares.acl']             = $acl;
         $app->shouldReceive('make')->once()->with('antares.platform.menu')->andReturn($menu);
         $stub                                 = new BrandsMenu($app);
-        $guardMock                            = m::mock('\Antares\Contracts\Auth\Guard');
+
+        $guardMock = m::mock('\Antares\Contracts\Auth\Guard');
+
         $guardMock->shouldReceive('guest')->andReturn(false);
+
         $this->assertTrue($stub->authorize($guardMock));
     }
 
