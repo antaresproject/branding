@@ -34,7 +34,9 @@ class BrandsPane extends LeftPane
     public function compose($name = NULL, $options = array())
     {
         $menu = $this->widget->make('menu.brands.pane');
-        $id   = request()->segment(2) == 'branding' ? brand_id() : from_route('brands');
+        $bId  = brand_id();
+        $id   = request()->segment(2) == 'branding' ? $bId : from_route('brands', $bId);
+
 
         $menu->add('brand-settings')
                 ->link(handles("antares::branding"))
@@ -46,6 +48,7 @@ class BrandsPane extends LeftPane
 
         $areas     = config('areas.areas');
         $templates = BrandTemplates::where('brand_id', $id)->whereIn('area', array_keys($areas))->get();
+
 
         foreach ($templates as $template) {
             $menu->add($template->area)
