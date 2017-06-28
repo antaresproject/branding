@@ -45,7 +45,7 @@ class BrandsMenu extends MenuHandler
      */
     public function getPositionAttribute()
     {
-        return $this->handler->has('settings.general-config') ? '>:settings.general-config' : '>:home';
+        return $this->handler->has('settings.general-config') ? '>:settings.general-config' : '^:settings';
     }
 
     public function getLinkAttribute($value = null)
