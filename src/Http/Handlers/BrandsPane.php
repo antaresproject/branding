@@ -51,6 +51,8 @@ class BrandsPane extends LeftPane
 
 
         foreach ($templates as $template) {
+
+
             $menu->add($template->area)
                     ->title(trans(array_get($areas, $template->area) . ' Area'))
                     ->link(handles("antares::branding/area/{$template->id}"));
