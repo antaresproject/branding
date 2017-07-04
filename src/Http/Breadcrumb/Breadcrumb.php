@@ -62,12 +62,15 @@ class Breadcrumb extends Navigation
         $this->onBrandsList();
         $name = 'rand-' . $model->name;
         $this->breadcrumbs->register($name, function($breadcrumbs) use($model, $name) {
-            $breadcrumbs->parent('branding');
             $multibrandActive = extension_active('multibrand');
-            $name             = trans('antares/brands::messages.brand_settings');
+            if (!$multibrandActive) {
+                $breadcrumbs->parent('branding');
+            }
+
+            $name = trans('antares/brands::messages.brand_settings');
             if ($multibrandActive) {
                 $breadcrumbs->parent('brands');
-                $name = trans('antares/brands::messages.brand_edit', ['name' => $model->name]);
+                $name = $model->name;
             }
             set_meta('title', $name);
             $breadcrumbs->push($name);
