@@ -156,6 +156,7 @@ class LayoutStyler extends AbstractAdapter implements StylerAdapter
         if (!is_null($modPri3 = array_get($this->colors, 'main.mod3'))) {
             $modPri3 = starts_with($modPri3, '#') ? $modPri3 : '#' . $modPri3;
             $return  .= ".badge,.btn.btn--indigo{background-color:$modPri3 !important;}\n";
+            $return  .= ".menu-aside{border-bottom:1px solid $modPri1 !important;}\n";
             $return  .= ".ddown--brand .ddown__init{background-color:$modPri3 !important;}\n";
             $return  .= "body .select2-dropdown ul.select2-results__options li.select2-results__option[aria-selected=true],
                          body .select2-dropdown ul.select2-results__options li.select2-results__option[aria-selected=true]:after,
