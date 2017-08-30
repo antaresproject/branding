@@ -96,9 +96,6 @@ class Brand extends Twig_Extension
         $function = function () {
             $colors = $this->registry()->get('brand.configuration.template.colors', []);
 
-//            if (empty($colors)) {
-//                return '';
-//            }
             return StylerFacade::layoutAdapter($colors)->style();
         };
         return new Twig_SimpleFunction(
