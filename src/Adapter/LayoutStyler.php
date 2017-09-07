@@ -99,7 +99,7 @@ class LayoutStyler extends AbstractAdapter implements StylerAdapter
         if (!is_null($value = array_get($this->colors, 'main.value'))) {
             $value  = starts_with($value, '#') ? $value : '#' . $value;
             $return .= ".error-container .top-area,.app-content:before{ background-color:" . $value . " !important}\n";
-            $return .= ".ddown.ddown--brand .ddown__menu li.is-selected .flex-block:after{ color:" . $value . " !important;}\n";
+            $return .= ".ddown.ddown--brand .ddown__menu li.is-selected .flex-block:after,.zd__header i{ color:" . $value . " !important;}\n";
             $return .= "aside.main-sidebar ul.main-menu .submenu.submenu--system section.section--2col .submenu__content .submenu__content-right .datarow .datarow__right i{ color:" . $value . " !important;}\n";
             $return .= ".flex-block .flex-block__badge { color:" . $value . " !important;}\n";
             $return .= ".switch .switch-checkbox:checked + .switch-container{ background-color:" . $value . " !important;}\n";
