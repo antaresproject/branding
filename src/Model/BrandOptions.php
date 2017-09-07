@@ -18,7 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
 namespace Antares\Brands\Model;
 
 use Antares\Translations\Models\Languages;
@@ -48,7 +47,7 @@ class BrandOptions extends Eloquent
      *
      * @var array 
      */
-    protected $fillable = ['country_id', 'language_id', 'date_format_id', 'maintenance', 'url', 'header', 'styles', 'footer'];
+    protected $fillable = ['country_id', 'language_id', 'timezone', 'date_format_id', 'time_format', 'maintenance', 'url', 'header', 'styles', 'footer'];
 
     /**
      * whether table has times columns

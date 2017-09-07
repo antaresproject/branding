@@ -17,12 +17,10 @@
  * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
 return
-            [
+        [
             'brand' =>
-                [
+            [
                 'name'                     => 'Brand Name',
                 'url'                      => 'Brand Url',
                 'date_format'              => 'Date Format',
@@ -41,6 +39,8 @@ return
                 'styles'                   => 'Styles',
                 'footer'                   => 'Footer',
                 'composition'              => 'Composition',
-                'styleset'                 => 'Styleset'
+                'styleset'                 => 'Styleset',
+                'time_format'              => 'Time format',
+                'timezone'                 => 'Timezone'
             ],
 ];

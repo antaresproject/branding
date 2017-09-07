@@ -148,7 +148,7 @@ class BrandsServiceProvider extends ModuleServiceProvider
         $template = current(array_get($default, 'templates'));
         unset($default['templates']);
         $registry = $memory->make('registry');
-        $registry->put('brand.configuration', $default);
+        //$registry->put('brand.configuration', $default);
         $registry->put('brand.configuration.template', $template);
     }
 

@@ -36,4 +36,19 @@ return [
     ],
     'brand_template_has_not_been_updated' => 'Brand template has not been updated',
     'brand_template_has_been_updated'     => 'Brand template has been updated',
+    'date_format_helpers'                 => [
+        'd-m-y'      => 'E.g.: 01-01-2001.',
+        'y-m-d'      => 'E.g.: 2001-01-01.',
+        'f-j-y-gi-a' => 'E.g.: March 10, 2001.',
+        'mdy'        => 'E.g.: 01.01.01.',
+        'j-n-y'      => 'E.g.: 1, 1, 2001.',
+        'ymd'        => 'E.g.: 20010310.',
+        'jmy'        => 'E.g.: 10-03-01.',
+        'd-m-j-t-y'  => 'E.g.: Sat Mar 10 MST 2001.'
+    ],
+    'time_format_helpers'                 => [
+        'his'   => 'E.g.: 23:59:59.',
+        'his-a' => 'E.g.: 12:59:59 pm.',
+    ],
+    'timezone_field_description'          => 'This list is based upon the timezone database version 2017.2. <strong>You can change default timzone only during installation process.</strong>'
 ];
