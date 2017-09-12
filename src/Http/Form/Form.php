@@ -56,9 +56,8 @@ class Form extends FormBuilder implements Presenter
         $url         = (extension_active('multibrand') and ! $model->exists) ? 'antares::multibrand' : 'antares::brands';
         $this->grid->resource($this, handles($url), $model);
         $this->grid->rules([
-            'name'        => ['required', 'unique:tbl_brands,id' . (($isNew) ? '' : ',' . $model->id)],
-            'description' => 'required',
-            'url'         => 'regex:/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/'
+            'name' => ['required', 'unique:tbl_brands,id' . (($isNew) ? '' : ',' . $model->id)],
+            'url'  => 'regex:/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/'
         ]);
 
         $this->controlsFieldset();
@@ -193,6 +192,27 @@ class Form extends FormBuilder implements Presenter
                         })
                         ->help(trans('antares/brands::messages.timezone_field_description'))
                         ->value(reset($timezones))
+                        ->fieldClass('input-field--icon')
+                        ->prepend('<span class = "input-field__icon"><i class="zmdi zmdi-time"></i></span>');
+    }
+
+    /**
+     * Creates time format control
+     * 
+     * @param Fieldset $fieldset
+     * @return Fieldset
+     */
+    protected function timeFormat(Fieldset $fieldset)
+    {
+        $timeFormats        = config('antares/brands::time_formats');
+        $selectedTimeFormat = !is_null($this->model->options) ? $this->model->options->time_format : null;
+
+        return $fieldset->control('select', 'time_format')
+                        ->wrapper(['class' => 'w220'])
+                        ->label(trans('antares/brands::label.brand.time_format'))
+                        ->options($timeFormats)
+                        ->help($this->timeFormatHelp($timeFormats, $selectedTimeFormat))
+                        ->value($selectedTimeFormat)
                         ->fieldClass('input-field--icon')
                         ->prepend('<span class = "input-field__icon"><i class="zmdi zmdi-time"></i></span>');
     }
