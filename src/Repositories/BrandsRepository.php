@@ -20,6 +20,8 @@
 
 namespace Antares\Brands\Repositories;
 
+use Antares\Brands\Model\BrandOptions;
+use Antares\Brands\Model\Brands;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Antares\Brands\Contracts\BrandsRepositoryContract;
 use Antares\Translations\Models\Languages;
@@ -139,9 +141,8 @@ class BrandsRepository implements BrandsRepositoryContract
 
     /**
      * updates brand
-     * 
+     *
      * @param Model $brand
-     * @param int $id
      * @param array $data
      * @throws Exception
      */
@@ -202,6 +203,7 @@ class BrandsRepository implements BrandsRepositoryContract
      */
     public function saveTemplate(EloquentModel $brand, $area, array $data)
     {
+        /* @var $brand Brands */
         $template = $brand->templates()->getModel()->query()->firstOrNew(['brand_id' => $brand->id, 'area' => $area]);
         $template->fill($data);
         return $template->save();
@@ -209,14 +211,15 @@ class BrandsRepository implements BrandsRepositoryContract
 
     /**
      * Saves brand options
-     * 
-     * @param String $area
+     *
      * @param EloquentModel $brand
      * @param array $data
-     * @return EloquentModel
+     * @return false|EloquentModel
      */
     private function saveOptions(EloquentModel $brand, array $data = array())
     {
+        /* @var $brand Brands */
+        /* @var $options BrandOptions */
         $options  = $brand->options()->getModel()->query()->firstOrNew(['brand_id' => $brand->id]);
         $language = app(Languages::class)->query()->where('code', $data['default_language'])->firstOrFail();
         $country  = app(Country::class)->query()->where('code', $data['default_country'])->firstOrFail();
@@ -229,19 +232,24 @@ class BrandsRepository implements BrandsRepositoryContract
         if (!isset($data['footer'])) {
             $data['footer'] = config('antares/brands::default.footer')->render();
         }
-        $options->fill([
+
+        $optionsData = [
             'country_id'     => $country->id,
             'language_id'    => $language->id,
             'date_format_id' => $data['date_format'],
-            'maintenance'    => isset($data['maintenance_mode']) && $data['maintenance_mode'] == 'on' ? 1 : 0] + $data);
+            'maintenance'    => array_get($data, 'maintenance_mode') === 'on' ? 1 : 0,
+        ];
+
+        $options->fill(array_merge($optionsData, $data));
 
         return $brand->options()->save($options);
     }
 
     /**
      * deletes brand by model
-     * 
+     *
      * @param Model $brand
+     * @return bool|null
      */
     public function delete(Model $brand)
     {
@@ -280,6 +288,7 @@ class BrandsRepository implements BrandsRepositoryContract
      */
     public function storeTemplate(EloquentModel $model, array $data = [])
     {
+        /* @var $model Brands */
         $template = $model->options()->firstOrNew(['brand_id' => $model->id]);
         $template->fill($data);
         return $template->save();
