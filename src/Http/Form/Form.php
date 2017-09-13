@@ -100,7 +100,7 @@ class Form extends FormBuilder implements Presenter
                     $this->timeFormat($fieldset);
 
 
-                    $options = app(Country::class)->query()->get()->pluck('name', 'code');
+                    $options = Country::query()->get()->pluck('name', 'code');
                     $country = $fieldset->control('select', 'default_country')
                             ->label(trans('antares/brands::label.brand.default_country'))
                             ->attributes(['data-flag-select', 'data-selectAR' => true, 'class' => 'w200'])
@@ -120,7 +120,7 @@ class Form extends FormBuilder implements Presenter
                     if (!is_null($optionsModel)) {
                         $country->value($optionsModel->country()->first()->code);
                     }
-                    $langs = app(Languages::class)->query()->get()->pluck('name', 'code');
+                    $langs = Languages::query()->get()->pluck('name', 'code');
                     $fieldset->control('select', 'default_language')
                             ->label(trans('antares/brands::label.brand.default_language'))
                             ->attributes(['data-flag-select', 'data-selectAR' => true, 'class' => 'w200'])
@@ -225,12 +225,12 @@ class Form extends FormBuilder implements Presenter
      */
     protected function dateFormat(Fieldset $fieldset)
     {
-        $formats            = app(DateFormat::class)->query()->get()->pluck('format', 'id');
+        $formats            = DateFormat::query()->get()->pluck('format', 'id');
         $selectedDateFormat = !is_null($dateFormatModel    = $this->model->options()->first()) ? $dateFormatModel->date_format_id : null;
 
         return $fieldset->control('select', 'date_format')
                         ->wrapper(['class' => 'w220'])
-                        ->label(trans('antares/multibrand::label.brand.date_format'))
+                        ->label(trans('antares/brands::label.brand.date_format'))
                         ->options($formats)
                         ->help($this->dateFormatHelp($formats, $selectedDateFormat))
                         ->value($selectedDateFormat)

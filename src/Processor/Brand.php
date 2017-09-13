@@ -55,7 +55,7 @@ class Brand extends Processor
      * Create a new processor instance.
      *
      * @param  \Antares\Users\Http\Presenters\User  $presenter
-     * @param  BrandsRepository  $repository
+     * @param  BrandsRepositoryContract  $repository
      * @param  Dispatcher  $dispatcher
      */
     public function __construct(Presenter $presenter, BrandsRepositoryContract $repository, Dispatcher $dispatcher, BrandsTeller $brandsTeller)

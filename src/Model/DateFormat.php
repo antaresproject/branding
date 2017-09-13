@@ -23,6 +23,13 @@ namespace Antares\Brands\Model;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
+/**
+ * Class DateFormat
+ * @package Antares\Brands\Model
+ *
+ * @property integer $id
+ * @property string $format
+ */
 class DateFormat extends Eloquent
 {
 
