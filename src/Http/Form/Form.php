@@ -60,9 +60,7 @@ class Form extends FormBuilder implements Presenter
             'description' => 'required',
             'url'         => 'regex:/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/'
         ]);
-
         $this->controlsFieldset();
-        $this->grid->layout('antares/foundation::brands.partials._form');
     }
 
     /**
@@ -78,11 +76,12 @@ class Form extends FormBuilder implements Presenter
                     $fieldset->control('input:text', 'name')
                             ->label(trans('antares/brands::label.brand.name'))
                             ->attributes(['placeholder' => trans('antares/brands::label.brand.name')])
-                            ->wrapper(['class' => 'w250']);
+                            ->wrapper(['class' => 'col-mb-16 col-18 col-dt-12 col-ld-7']);
 
                     $maintenance = $fieldset->control('switch', 'maintenance_mode')
                             ->label(trans('antares/brands::label.brand.maintenance_mode'))
-                            ->tooltip(trans('antares/brands::label.brand.maintenance_mode_tooltip'));
+                            ->help(trans('antares/brands::label.brand.maintenance_mode_tooltip'));
+
                     if (($this->model->exists and $this->model->options->maintenance > 0) or ! $this->model->exists) {
                         $maintenance->checked();
                     }
@@ -92,10 +91,10 @@ class Form extends FormBuilder implements Presenter
                             ->fieldClass('input-field--group input-field--pre')
                             ->before('<div class="input-field__pre"><span>' . (request()->secure() ? 'https://' : 'http://') . '</span></div>')
                             ->value(!is_null($this->model->options) ? str_replace('http://', '', $this->model->options->url) : '')
-                            ->wrapper(['class' => 'w300']);
+                            ->wrapper(['class' => 'col-mb-16 col-18 col-dt-12 col-ld-7']);
 
                     $dateFormat = $fieldset->control('select', 'date_format')
-                            ->wrapper(['class' => 'w180'])
+                            //->wrapper(['class' => 'w180'])
                             ->label(trans('antares/brands::label.brand.date_format'))
                             ->options(function() {
                         return app(DateFormat::class)->query()->get()->pluck('format', 'id');

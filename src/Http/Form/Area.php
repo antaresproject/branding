@@ -57,6 +57,7 @@ class Area extends FormBuilder implements Presenter
         $this->colorsFieldset();
         $this->textColorsFieldsets();
         $this->grid->layout('antares/foundation::brands.partials._area_form');
+        view()->share('content_class', 'page-brand-settings');
     }
 
     /**
@@ -69,7 +70,7 @@ class Area extends FormBuilder implements Presenter
         return $this->grid->fieldset('info', function (Fieldset $fieldset) {
                     $fieldset->legend(trans('antares/brands::messages.legend.brand_template'));
                     $fieldset->control('radio_btns', 'composition')
-                            ->label(trans('antares/brands::label.brand.composition'))
+                            ->label('')
                             ->options($this->getCompositionOptions())
                             ->value($this->model->composition);
 

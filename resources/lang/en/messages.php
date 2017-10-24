@@ -19,9 +19,10 @@
  */
 return [
     'disabled_delete_brand_demo'          => 'Sorry, not this time ;)',
-    'small_sidemenu'                      => 'Small sidemenu',
-    'big_sidemenu'                        => 'Big sidemenu',
-    'upper_menu'                          => 'Upper menu',
+    'small_sidemenu'                      => 'Short side menu',
+    'big_sidemenu'                        => 'Wide sidemenu',
+    'top_menu'                            => 'Full top menu',
+    'short_top_menu'                      => 'Short top menu',
     'simple'                              => 'Simple',
     'material'                            => 'Material',
     'brand_settings'                      => 'Brand settings',

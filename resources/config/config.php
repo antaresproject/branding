@@ -48,7 +48,7 @@ return [
         'footer' => view('antares/brands::_footer_default'),
     ],
     'compositions' => [
-        'small_sidemenu', 'big_sidemenu', 'upper_menu'
+        'small_sidemenu', 'big_sidemenu', 'top_menu', 'short_top_menu'
     ],
     'stylesets'    => [
         'material', 'simple'
