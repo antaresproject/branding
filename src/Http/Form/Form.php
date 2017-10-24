@@ -56,11 +56,12 @@ class Form extends FormBuilder implements Presenter
         $url         = (extension_active('multibrand') and ! $model->exists) ? 'antares::multibrand' : 'antares::brands';
         $this->grid->resource($this, handles($url), $model);
         $this->grid->rules([
-            'name'        => ['required', 'unique:tbl_brands,id' . (($isNew) ? '' : ',' . $model->id)],
-            'description' => 'required',
-            'url'         => 'regex:/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/'
+            'name' => ['required', 'unique:tbl_brands,id' . (($isNew) ? '' : ',' . $model->id)],
+            'url'  => 'regex:/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/'
         ]);
+
         $this->controlsFieldset();
+        $this->grid->layout('antares/foundation::brands.partials._form');
     }
 
     /**
@@ -76,12 +77,11 @@ class Form extends FormBuilder implements Presenter
                     $fieldset->control('input:text', 'name')
                             ->label(trans('antares/brands::label.brand.name'))
                             ->attributes(['placeholder' => trans('antares/brands::label.brand.name')])
-                            ->wrapper(['class' => 'col-mb-16 col-18 col-dt-12 col-ld-7']);
+                            ->wrapper(['class' => 'w250']);
 
                     $maintenance = $fieldset->control('switch', 'maintenance_mode')
                             ->label(trans('antares/brands::label.brand.maintenance_mode'))
-                            ->help(trans('antares/brands::label.brand.maintenance_mode_tooltip'));
-
+                            ->tooltip(trans('antares/brands::label.brand.maintenance_mode_tooltip'));
                     if (($this->model->exists and $this->model->options->maintenance > 0) or ! $this->model->exists) {
                         $maintenance->checked();
                     }
@@ -91,20 +91,16 @@ class Form extends FormBuilder implements Presenter
                             ->fieldClass('input-field--group input-field--pre')
                             ->before('<div class="input-field__pre"><span>' . (request()->secure() ? 'https://' : 'http://') . '</span></div>')
                             ->value(!is_null($this->model->options) ? str_replace('http://', '', $this->model->options->url) : '')
-                            ->wrapper(['class' => 'col-mb-16 col-18 col-dt-12 col-ld-7']);
+                            ->wrapper(['class' => 'w300']);
 
-                    $dateFormat = $fieldset->control('select', 'date_format')
-                            //->wrapper(['class' => 'w180'])
-                            ->label(trans('antares/brands::label.brand.date_format'))
-                            ->options(function() {
-                        return app(DateFormat::class)->query()->get()->pluck('format', 'id');
-                    });
-                    $dateFormatModel = $this->model->options()->first();
 
-                    if (!is_null($dateFormatModel)) {
-                        $dateFormat->value($dateFormatModel->date_format_id);
-                    }
-                    $options = app(Country::class)->query()->get()->pluck('name', 'code');
+
+                    $this->timezone($fieldset);
+                    $this->dateFormat($fieldset);
+                    $this->timeFormat($fieldset);
+
+
+                    $options = Country::query()->get()->pluck('name', 'code');
                     $country = $fieldset->control('select', 'default_country')
                             ->label(trans('antares/brands::label.brand.default_country'))
                             ->attributes(['data-flag-select', 'data-selectAR' => true, 'class' => 'w200'])
@@ -124,7 +120,7 @@ class Form extends FormBuilder implements Presenter
                     if (!is_null($optionsModel)) {
                         $country->value($optionsModel->country()->first()->code);
                     }
-                    $langs = app(Languages::class)->query()->get()->pluck('name', 'code');
+                    $langs = Languages::query()->get()->pluck('name', 'code');
                     $fieldset->control('select', 'default_language')
                             ->label(trans('antares/brands::label.brand.default_language'))
                             ->attributes(['data-flag-select', 'data-selectAR' => true, 'class' => 'w200'])
@@ -174,6 +170,106 @@ class Form extends FormBuilder implements Presenter
                                 });
                     }
                 });
+    }
+
+    /**
+     * Creates timezone control 
+     * 
+     * @param Fieldset $fieldset
+     * @return Fieldset
+     */
+    protected function timezone(Fieldset $fieldset)
+    {
+        $timezones = config('antares/brands::timezones');
+        return $fieldset->control('select', 'timezone')
+                        ->wrapper(['class' => 'w220'])
+                        ->label(trans('antares/brands::label.brand.timezone'))
+                        ->attributes([
+                            'disabled' => 'disabled'
+                        ])
+                        ->options(function() use($timezones) {
+                            return $timezones;
+                        })
+                        ->help(trans('antares/brands::messages.timezone_field_description'))
+                        ->value(reset($timezones))
+                        ->fieldClass('input-field--icon')
+                        ->prepend('<span class = "input-field__icon"><i class="zmdi zmdi-time"></i></span>');
+    }
+
+    /**
+     * Creates time format control
+     * 
+     * @param Fieldset $fieldset
+     * @return Fieldset
+     */
+    protected function timeFormat(Fieldset $fieldset)
+    {
+        $timeFormats        = config('antares/brands::time_formats');
+        $selectedTimeFormat = !is_null($this->model->options) ? $this->model->options->time_format : null;
+
+        return $fieldset->control('select', 'time_format')
+                        ->wrapper(['class' => 'w220'])
+                        ->label(trans('antares/brands::label.brand.time_format'))
+                        ->options($timeFormats)
+                        ->help($this->timeFormatHelp($timeFormats, $selectedTimeFormat))
+                        ->value($selectedTimeFormat)
+                        ->fieldClass('input-field--icon')
+                        ->prepend('<span class = "input-field__icon"><i class="zmdi zmdi-time"></i></span>');
+    }
+
+    /**
+     * Creates date format control
+     * 
+     * @param Fieldset $fieldset
+     * @return Fieldset
+     */
+    protected function dateFormat(Fieldset $fieldset)
+    {
+        $formats            = DateFormat::query()->get()->pluck('format', 'id');
+        $selectedDateFormat = !is_null($dateFormatModel    = $this->model->options()->first()) ? $dateFormatModel->date_format_id : null;
+
+        return $fieldset->control('select', 'date_format')
+                        ->wrapper(['class' => 'w220'])
+                        ->label(trans('antares/brands::label.brand.date_format'))
+                        ->options($formats)
+                        ->help($this->dateFormatHelp($formats, $selectedDateFormat))
+                        ->value($selectedDateFormat)
+                        ->fieldClass('input-field--icon')
+                        ->prepend('<span class = "input-field__icon"><i class="zmdi zmdi-calendar"></i></span>');
+    }
+
+    /**
+     * Create info container about selected date format
+     * 
+     * @param \Illuminate\Support\Collection $formats
+     * @param mixed $selectedTimeFormat
+     * @return String
+     */
+    protected function timeFormatHelp($formats, $selectedTimeFormat = null)
+    {
+        $return = '<div>';
+        foreach ($formats as $id => $format) {
+            $hidden = $id === $selectedTimeFormat ? '' : 'hidden';
+            $return .= '<span class="time-format-help ' . $hidden . '" data-id="' . $id . '">' . trans('antares/brands::messages.time_format_helpers.' . str_slug($id)) . '</span>';
+        }
+        return $return . '</div>';
+    }
+
+    /**
+     * Create info container about selected date format
+     * 
+     * @param \Illuminate\Support\Collection $formats
+     * @param mixed $selectedDateFormat
+     * @return String
+     */
+    protected function dateFormatHelp($formats, $selectedDateFormat = null)
+    {
+        $return = '<div>';
+        foreach ($formats as $id => $format) {
+            $hidden = $id === $selectedDateFormat ? '' : 'hidden';
+            $return .= '<span class="date-format-help ' . $hidden . '" data-id="' . $id . '">' . trans('antares/brands::messages.date_format_helpers.' . str_slug($format)) . '</span>';
+        }
+        return $return . '</div>';
     }
 
     /**

@@ -18,7 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
 namespace Antares\Brands\Model;
 
 use Antares\Translations\Models\Languages;
@@ -48,7 +47,7 @@ class BrandOptions extends Eloquent
      *
      * @var array 
      */
-    protected $fillable = ['country_id', 'language_id', 'date_format_id', 'maintenance', 'url', 'header', 'styles', 'footer'];
+    protected $fillable = ['country_id', 'language_id', 'timezone', 'date_format_id', 'time_format', 'maintenance', 'url', 'header', 'styles', 'footer'];
 
     /**
      * whether table has times columns
@@ -59,8 +58,8 @@ class BrandOptions extends Eloquent
 
     /**
      * belongs to relation to language table
-     * 
-     * @return Eloquent
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function language()
     {
@@ -70,7 +69,7 @@ class BrandOptions extends Eloquent
     /**
      * belongs to relation to country table
      * 
-     * @return Eloquent
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function country()
     {
@@ -80,7 +79,7 @@ class BrandOptions extends Eloquent
     /**
      * belongs to relation to brands table
      * 
-     * @return Eloquent
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function brand()
     {
@@ -90,7 +89,7 @@ class BrandOptions extends Eloquent
     /**
      * relation to date formats
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function dateFormats()
     {
@@ -99,8 +98,9 @@ class BrandOptions extends Eloquent
 
     /**
      * Gets patterned url for search engines
-     * 
-     * @return String
+     *
+     * @param null $id
+     * @return null|string
      */
     public static function getPatternUrl($id = null)
     {

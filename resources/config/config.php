@@ -18,6 +18,13 @@
  * @link       http://antaresproject.io
  */
 return [
+    'timezones'    => [
+        'Europe/Warsaw' => 'Europe/Warsaw'
+    ],
+    'time_formats' => [
+        'H:i:s'   => 'H:i:s (24h)',
+        'h:i:s a' => 'h:i:s a (12h)'
+    ],
     'per_page'     => 10,
     'logo'         => [
         'default_white' => 'logo_white_full.png',
