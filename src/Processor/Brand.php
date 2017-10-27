@@ -18,7 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
 namespace Antares\Brands\Processor;
 
 use Antares\Brands\Listener\BrandUpdater as BrandUpdaterListener;

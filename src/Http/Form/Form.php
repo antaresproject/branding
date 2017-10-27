@@ -61,7 +61,6 @@ class Form extends FormBuilder implements Presenter
         ]);
 
         $this->controlsFieldset();
-        $this->grid->layout('antares/foundation::brands.partials._form');
     }
 
     /**
@@ -77,7 +76,7 @@ class Form extends FormBuilder implements Presenter
                     $fieldset->control('input:text', 'name')
                             ->label(trans('antares/brands::label.brand.name'))
                             ->attributes(['placeholder' => trans('antares/brands::label.brand.name')])
-                            ->wrapper(['class' => 'w250']);
+                            ->wrapper(['class' => 'col-mb-16 col-18 col-dt-10 col-ld-6']);
 
                     $maintenance = $fieldset->control('switch', 'maintenance_mode')
                             ->label(trans('antares/brands::label.brand.maintenance_mode'))
@@ -91,7 +90,7 @@ class Form extends FormBuilder implements Presenter
                             ->fieldClass('input-field--group input-field--pre')
                             ->before('<div class="input-field__pre"><span>' . (request()->secure() ? 'https://' : 'http://') . '</span></div>')
                             ->value(!is_null($this->model->options) ? str_replace('http://', '', $this->model->options->url) : '')
-                            ->wrapper(['class' => 'w300']);
+                            ->wrapper(['class' => 'col-mb-16 col-18 col-dt-10 col-ld-6']);
 
 
 
@@ -182,7 +181,7 @@ class Form extends FormBuilder implements Presenter
     {
         $timezones = config('antares/brands::timezones');
         return $fieldset->control('select', 'timezone')
-                        ->wrapper(['class' => 'w220'])
+                        ->wrapper(['class' => 'col-mb-16 col-18 col-dt-10 col-ld-4'])
                         ->label(trans('antares/brands::label.brand.timezone'))
                         ->attributes([
                             'disabled' => 'disabled'
@@ -208,7 +207,7 @@ class Form extends FormBuilder implements Presenter
         $selectedTimeFormat = !is_null($this->model->options) ? $this->model->options->time_format : null;
 
         return $fieldset->control('select', 'time_format')
-                        ->wrapper(['class' => 'w220'])
+                        ->wrapper(['class' => 'col-mb-16 col-18 col-dt-10 col-ld-4'])
                         ->label(trans('antares/brands::label.brand.time_format'))
                         ->options($timeFormats)
                         ->help($this->timeFormatHelp($timeFormats, $selectedTimeFormat))
@@ -229,7 +228,7 @@ class Form extends FormBuilder implements Presenter
         $selectedDateFormat = !is_null($dateFormatModel    = $this->model->options()->first()) ? $dateFormatModel->date_format_id : null;
 
         return $fieldset->control('select', 'date_format')
-                        ->wrapper(['class' => 'w220'])
+                        ->wrapper(['class' => 'col-mb-16 col-18 col-dt-10 col-ld-4'])
                         ->label(trans('antares/brands::label.brand.date_format'))
                         ->options($formats)
                         ->help($this->dateFormatHelp($formats, $selectedDateFormat))
