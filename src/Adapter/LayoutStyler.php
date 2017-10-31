@@ -65,7 +65,7 @@ class LayoutStyler extends AbstractAdapter implements StylerAdapter
         }
         if (!is_null($value = array_get($this->colors, 'text.main.second'))) {
             $value  = starts_with($value, '#') ? $value : '#' . $value;
-            $return .= ".search-box .search-box__search-field,.btn.btn--default,.sandbox-mode-title {color:" . $value . "}\n";
+            $return .= ".search-box .search-box__search-field,.sandbox-mode-title {color:" . $value . "}\n";
             $return .= ".main-head .search-box .search-box__mdl-textfield .mdl-textfield__label {color:" . $value . "}\n";
             $return .= ".search-box .search-box__search-field{ border-color:" . $value . "}\n";
         }
@@ -111,7 +111,7 @@ class LayoutStyler extends AbstractAdapter implements StylerAdapter
             $return .= ".ddown.ddown--brand .ddown__menu li.is-selected .flex-block { color:" . $value . " !important;}\n";
             $return .= ".timeline li a { color:" . $value . " !important;}\n";
             $return .= ".icheckbox_billevo.checked { background-color: " . $value . "!important;}\n";
-            $return .= ".tbl-c table tr td a,.ddown.ddown--columns li.col-is-visible a,.ddown.ddown--columns li.col-is-visible a:after,.btn-link.btn--primary { color: " . $value . "!important;}\n";
+            $return .= ".tbl-c table tr td:not(.dataTables_empty) a,.ddown.ddown--columns li.col-is-visible a,.ddown.ddown--columns li.col-is-visible a:after,.btn-link.btn--primary { color: " . $value . "!important;}\n";
 
             $return .= ".timeline li.timeline__entry--ok:before { color:" . $value . " !important;}\n";
             $return .= ".ddown.ddown--brand .ddown__menu li.is-selected .flex-block, .ddown.ddown--brand .ddown__menu li.is-selected .flex-block .flex-block__title { color:" . $value . " !important;}\n";
