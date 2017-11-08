@@ -75,8 +75,7 @@ class Area
             if (!$template->save()) {
                 return redirect_with_message(url()->previous(), trans('antares/brands::messages.brand_template_has_not_been_updated'), 'error');
             }
-            $url = extension_active('multibrand') ? 'antares::multibrand/index' : "antares::branding";
-            return redirect_with_message(handles($url), trans('antares/brands::messages.brand_template_has_been_updated'), 'success');
+            return redirect_with_message(url()->previous(), trans('antares/brands::messages.brand_template_has_been_updated'), 'success');
         }
         return view('antares/foundation::brands.edit', ['form' => $form]);
     }
