@@ -54,7 +54,7 @@ class Email extends Presenter
     public function email(Model $model)
     {
         view()->share('pageId', 'page-email-settings');
-        publish(null, ['/packages/core/js/brand-form.js', '/packages/core/js/brand-colors.js']);
+        //publish(null, ['/packages/core/js/brand-form.js', '/packages/core/js/brand-colors.js']);
         $this->breadcrumb->onBrandEmailEdit($model);
         $form = $this->form($model);
         return view('antares/foundation::brands.email', compact('form'));
