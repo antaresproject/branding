@@ -69,10 +69,11 @@ class LayoutStyler extends AbstractAdapter implements StylerAdapter
             $return .= ".main-head .search-box .search-box__mdl-textfield .mdl-textfield__label {color:" . $value . "}\n";
             $return .= ".search-box .search-box__search-field{ border-color:" . $value . "}\n";
         }
+        //.app-content:before
         if (!is_null($value = array_get($this->colors, 'text.secondary.second'))) {
             $value  = starts_with($value, '#') ? $value : '#' . $value;
             $return .= ".main-menu .is-active .icon, .main-menu .is-active i, .main-menu .is-active .text { color:" . $value . " !important;}\n";
-            $return .= ".context-menu-list .context-menu-item.context-menu-hover > i, .context-menu-list .context-menu-item:hover > i,.context-menu-list .context-menu-item.context-menu-hover > span, .context-menu-list .context-menu-item:hover > span { color:" . $value . " !important;}\n";
+            //$return .= ".context-menu-list .context-menu-item.context-menu-hover > i, .context-menu-list .context-menu-item:hover > i,.context-menu-list .context-menu-item.context-menu-hover > span, .context-menu-list .context-menu-item:hover > span { color:" . $value . " !important;}\n";
             $return .= "aside.main-sidebar ul.main-menu > li > a:hover, aside.main-sidebar ul.main-menu > li > a:hover .icon, aside.main-sidebar ul.main-menu > li > a:hover i{color:" . $value . " !important}\n";
             $return .= "aside.main-sidebar ul.main-menu > li.hovered .text, aside.main-sidebar ul.main-menu > li.hovered .icon, aside.main-sidebar ul.main-menu > li.hovered i{color:" . $value . "}\n";
         }
@@ -91,14 +92,35 @@ class LayoutStyler extends AbstractAdapter implements StylerAdapter
      */
     protected function brandFirstColors()
     {
-        $return = '@media only screen and (max-width: 768px){
-                        #app-wrapper aside.main-sidebar .main-sidebar__logo{
-                            background-image: url(/img/logos/logo_default_full_mobile.png) !important;
+        $return = '@media only screen and (max-width: 1023px) and (min-width: 768px)
+                        #app-wrapper aside.main-sidebar ul.main-menu li.main-menu__brand > a .main-sidebar__logo{
+                            background-image: url(' . brand_logo('big', asset('/img/logos/logo_default_full.png')) . ') !important;
                         }}';
 
         if (!is_null($value = array_get($this->colors, 'main.value'))) {
             $value  = starts_with($value, '#') ? $value : '#' . $value;
-            $return .= ".error-container .top-area,.app-content:before{ background-color:" . $value . " !important}\n";
+            $return .= ".app-content:before{background:$value !important;},.error-container .top-area,.app-content:before{ background-color:" . $value . " !important}\n";
+            $return .= ".error-container .top-area .error-message{background:$value !important;},\n";
+            $return .= ".zd__header i{color:$value !important;}\n";
+            $return .= ".main-menu-html div.more-trigger.is-expanded .more-trigger__inner{background-color:$value !important;}\n";
+            $return .= ".grid-stack-item-content .card.card--pagination .tbl-c .pagination--type2 .dataTables_paginate span > .mdl-js-button.current{color:$value !important;}\n";
+            $return .= ".mdl-tabs.is-upgraded .mdl-tabs__tab.is-active, .pagination .antares-pagination ul li .active, .pagination .antares-pagination ul li.active span, .pagination .antares-pagination ul li a:hover{color:$value !important;}\n";
+            $return .= ".card--pagination .tbl-c .dataTables_wrapper .pagination--type2 .dataTables_paginate > span a.current{color:$value !important;}\n";
+
+
+            $return .= "@media only screen and (max-width: 1023px) and (min-width: 768px){
+                #app-wrapper aside.main-sidebar .mobile-ddowns .mobile-ddowns__sgl ul.mobile-ddowns__menu{
+                    background-color:$value !important;
+                }
+            }";
+            $return .= "@media only screen and (max-width: 1023px) and (min-width: 768px){
+                    #app-wrapper aside.main-sidebar .mobile-ddowns .mobile-ddowns__sgl.mobile-ddowns__sgl--open:after{
+                        color:$value !important;
+                    }
+            }";
+            $return .= ".mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after{background:$value !important;}";
+
+
             $return .= ".ddown.ddown--brand .ddown__menu li.is-selected .flex-block:after,.zd__header i{ color:" . $value . " !important;}\n";
             $return .= "aside.main-sidebar ul.main-menu .submenu.submenu--system section.section--2col .submenu__content .submenu__content-right .datarow .datarow__right i{ color:" . $value . " !important;}\n";
             $return .= ".flex-block .flex-block__badge { color:" . $value . " !important;}\n";
@@ -148,11 +170,22 @@ class LayoutStyler extends AbstractAdapter implements StylerAdapter
             $return .= ".app-content__footer .btn--primary{background-color:$value !important;}\n";
             $return .= ".breadcrumbs .ddown__menu{ border-color:$value !important;}\n";
         }
+        //
+        if (!is_null($modPri2 = array_get($this->colors, 'main.mod2')) && !is_null($modPri3 = array_get($this->colors, 'main.mod3'))) {
+            $modPri1 = array_get($this->colors, 'main.mod2');
+            $modPri1 = starts_with($modPri1, '#') ? $modPri1 : '#' . $modPri1;
+            $modPri2 = starts_with($modPri2, '#') ? $modPri2 : '#' . $modPri2;
+            $modPri3 = starts_with($modPri3, '#') ? $modPri3 : '#' . $modPri3;
+            $return  .= ".btn.btn--brand{background:$modPri3 !important;}\n";
+            $return  .= ".app-content.page-login{ background-image:linear-gradient(to top, " . $modPri1 . " 0%, " . $modPri3 . " 100%) !important; }";
+        }
+
         if (!is_null($modPri1 = array_get($this->colors, 'main.mod1'))) {
             $modPri1 = starts_with($modPri1, '#') ? $modPri1 : '#' . $modPri1;
             $return  .= ".breadcrumbs > li.is-active { background-color:" . $modPri1 . "!important;}\n";
             $return  .= ".menu-aside li.is-active a{background-color:$modPri1 !important;}\n";
         }
+
         if (!is_null($modPri3 = array_get($this->colors, 'main.mod3'))) {
             $modPri3 = starts_with($modPri3, '#') ? $modPri3 : '#' . $modPri3;
             $return  .= ".badge,.btn.btn--indigo{background-color:$modPri3 !important;}\n";
@@ -163,6 +196,20 @@ class LayoutStyler extends AbstractAdapter implements StylerAdapter
                          body .select2.select2-container--open .select2-selection__rendered
                          body .select2.select2-container--open .select2-selection__arrow:before,{
                 color: $modPri3 !important;
+            }";
+            $return  .= ".error-container .top-area{ background-color:" . $modPri3 . " !important}\n";
+            $return  .= "@media only screen and (max-width: 1023px) and (min-width: 768px){
+                    #app-wrapper aside.main-sidebar .mobile-ddowns .mobile-ddowns__sgl ul.mobile-ddowns__menu li:hover{
+                        background-color:$modPri3
+                    }
+            }";
+            $return  .= "@media only screen and (max-width: 1023px) and (min-width: 768px){
+                #app-wrapper aside.main-sidebar .mobile-ddowns .mobile-ddowns__sgl ul.mobile-ddowns__menu li.mobile-ddowns__menu-header{
+                    border-bottom-color:$modPri3
+                }
+            }";
+            $return  .= ".menu-mobile-settings + .select2 .select2-selection{
+                    background:$modPri3 !important;
             }";
 
             $return .= "body .pace .pace-progress {
