@@ -29,13 +29,22 @@ class TemplateController extends AdminController implements BrandTemplateing
 {
 
     /**
+     * Construct
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        active_menu_route('branding');
+    }
+
+    /**
      * Define filters for current controller.
      * @return void
      */
     protected function setupMiddleware()
     {
         $this->middleware('antares.auth');
-        //$this->middleware('antares.can:brand-email', ['only' => ['update']]);
+        active_menu_route('branding');
     }
 
     /**

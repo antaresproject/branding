@@ -45,6 +45,7 @@ class IndexController extends AdminController implements BrandUpdater
     public function __construct(Processor $processor)
     {
         $this->processor = $processor;
+        active_menu_route('branding');
         parent::__construct();
     }
 
