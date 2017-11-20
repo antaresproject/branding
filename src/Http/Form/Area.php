@@ -79,7 +79,7 @@ class Area extends FormBuilder implements Presenter
                             ->value(trans('antares/brands::label.brand.save_changes'));
                     $fieldset->control('button', 'cancel')
                             ->field(function() {
-                                return app('html')->link(handles("antares::brands/index"), trans('antares/brands::label.brand.cancel'), ['class' => 'btn btn--md btn--default mdl-button mdl-js-button mdl-js-ripple-effect']);
+                                return app('html')->link(handles("antares::branding/"), trans('antares/brands::label.brand.cancel'), ['class' => 'btn btn--md btn--default mdl-button mdl-js-button mdl-js-ripple-effect']);
                             });
                 });
     }
