@@ -63,8 +63,9 @@ class Area
      */
     public function area($brandId, $templateId)
     {
-        app('antares.asset')->container('antares/foundation::application')
-                ->add('webpack_brand_settings', '//10.10.10.35:71/js/view_brand_settings.js', ['app_cache']);
+        app('antares.asset')->container('antares/foundation::application')->add('webpack_brand_settings', '//10.10.10.35:71/js/view_brand_settings.js', ['app_cache']);
+
+
         $model    = $this->repository->findByIdAndTemplate($brandId, $templateId);
         $this->breadcrumb->onArea($model);
         $template = $model->templates->first();

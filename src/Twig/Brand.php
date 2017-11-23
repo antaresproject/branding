@@ -11,7 +11,7 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Antares Core
- * @version    0.9.0
+ * @version    0.9.2
  * @author     Antares Team
  * @license    BSD License (3-clause)
  * @copyright  (c) 2017, Antares
@@ -20,7 +20,6 @@
 
 namespace Antares\Brands\Twig;
 
-use Antares\Brands\Facade\StylerFacade;
 use Twig_SimpleFunction;
 use Twig_Extension;
 
@@ -49,7 +48,6 @@ class Brand extends Twig_Extension
      */
     protected function registry()
     {
-
         return app('antares.memory')->make('registry');
     }
 
@@ -94,9 +92,9 @@ class Brand extends Twig_Extension
     {
 
         $function = function () {
-            $colors = $this->registry()->get('brand.configuration.template.colors', []);
-
-            return StylerFacade::layoutAdapter($colors)->style();
+            return '<style data-desc="brand-colors">' .
+                    $this->registry()->get('brand.configuration.template.stylesheet') .
+                    '</style>';
         };
         return new Twig_SimpleFunction(
                 'brand_styles', $function

@@ -25,7 +25,6 @@ use Antares\Brands\Contracts\BrandsRepositoryContract;
 use Antares\Brands\Http\Middleware\BrandsMiddleware;
 use Antares\Brands\Repositories\BrandsRepository;
 use Antares\Brands\Http\Handlers\BrandsPane;
-use Antares\Brands\BrandStyler;
 use Illuminate\Routing\Router;
 
 class BrandsServiceProvider extends ModuleServiceProvider
@@ -60,19 +59,9 @@ class BrandsServiceProvider extends ModuleServiceProvider
     public function register()
     {
         parent::register();
-        $this->registerFacades();
         $this->registerRepositories();
         $this->registerBrandsTeller();
         $this->registerBrandEloquent();
-    }
-
-    /**
-     * registering component facades
-     */
-    protected function registerFacades()
-    {
-        $this->app->singleton(BrandStyler::class);
-        $this->app->alias(BrandStyler::class, 'brand-styler');
     }
 
     /**

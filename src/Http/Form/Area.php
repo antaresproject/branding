@@ -25,7 +25,6 @@ use Antares\Contracts\Html\Form\Presenter;
 use Antares\Contracts\Html\Form\Fieldset;
 use Antares\Html\Form\Grid as HtmlGrid;
 use Illuminate\Database\Eloquent\Model;
-use Antares\Brands\Facade\StylerFacade;
 use Antares\Contracts\Html\Form\Grid;
 use Antares\Html\Form\ClientScript;
 use Antares\Html\Form\FormBuilder;
@@ -55,6 +54,8 @@ class Area extends FormBuilder implements Presenter
         $this->controlsFieldset();
         $this->logoFieldset();
         $this->colorsFieldset();
+
+
         $this->textColorsFieldsets();
         $this->grid->layout('antares/foundation::brands.partials._area_form');
         view()->share('content_class', 'page-brand-settings');
@@ -74,9 +75,16 @@ class Area extends FormBuilder implements Presenter
                             ->options($this->getCompositionOptions())
                             ->value($this->model->composition);
 
+                    $fieldset->control('textarea', 'stylesheet')
+                            ->label('')
+                            ->value('')
+                            ->attributes(['class' => 'is-hidden brand-colors-container']);
+
                     $fieldset->control('button', 'button')
                             ->attributes(['type' => 'submit', 'value' => trans('Submit'), 'class' => 'btn btn--md btn--primary mdl-button mdl-js-button mdl-js-ripple-effect'])
                             ->value(trans('antares/brands::label.brand.save_changes'));
+
+
                     $fieldset->control('button', 'cancel')
                             ->field(function() {
                                 return app('html')->link(handles("antares::branding/"), trans('antares/brands::label.brand.cancel'), ['class' => 'btn btn--md btn--default mdl-button mdl-js-button mdl-js-ripple-effect']);
@@ -161,7 +169,6 @@ EOD;
     {
 
         $colors       = $this->model->colors;
-        StylerFacade::formAdapter($colors)->share();
         $this->colors = app('antares.memory')->make('registry')->get('brand.configuration.options.colors');
         $this->grid->fieldset('colors', function (Fieldset $fieldset) use($colors) {
             $fieldset->legend(trans('antares/brands::messages.legend.brand_colors'));

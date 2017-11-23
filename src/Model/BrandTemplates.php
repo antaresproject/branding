@@ -18,7 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
 namespace Antares\Brands\Model;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -47,7 +46,7 @@ class BrandTemplates extends Eloquent
      *
      * @var array 
      */
-    protected $fillable = ['brand_id', 'area', 'composition', 'styleset', 'logo', 'favicon', 'colors'];
+    protected $fillable = ['brand_id', 'area', 'composition', 'styleset', 'logo', 'favicon', 'colors', 'stylesheet'];
 
     /**
      * whether table has times columns
