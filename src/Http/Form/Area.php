@@ -231,7 +231,7 @@ EOD;
                     ->label('Background')
                     ->container('cp-brand--tetriary')
                     ->attributes(['class' => 'cp', 'maxlength' => 7])
-                    ->value(array_get($colors, 'background.value', '70c24a'));
+                    ->value(array_get($colors, 'background.value', 'dfe3e6'));
 
             $fieldset->control('input:hidden', 'colors[background][mod1]')
                     ->attributes(['class' => 'colors-background-mod1'])

@@ -45,7 +45,8 @@ return [
         'j-n-y'      => 'E.g.: 1, 1, 2001.',
         'ymd'        => 'E.g.: 20010310.',
         'jmy'        => 'E.g.: 10-03-01.',
-        'd-m-j-t-y'  => 'E.g.: Sat Mar 10 MST 2001.'
+        'd-m-j-t-y'  => 'E.g.: Sat Mar 10 MST 2001.',
+        'j-m-y'      => 'E.g.: 10-03-01.',
     ],
     'time_format_helpers'                 => [
         'his'   => 'E.g.: 23:59:59.',
