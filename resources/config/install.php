@@ -60,7 +60,7 @@ return [
                 ],
             ],
         ],
-        'logo'        => 'logo_default_full.png',
+        'logo'        => 'logo_default_full_mobile.png',
         'favicon'     => 'logo_default_tear.png',
         'composition' => 'small_sidemenu',
         'styleset'    => 'material'
