@@ -21,6 +21,7 @@
 
 namespace Antares\Brands\Http\Form;
 
+use Antares\Notifications\Services\VariablesService;
 use Illuminate\Contracts\Container\Container;
 use Antares\View\Notification\Notification;
 use Antares\Contracts\Html\Form\Presenter;
@@ -72,8 +73,8 @@ class Email extends FormBuilder implements Presenter
         parent::__construct(app(HtmlGrid::class), app(ClientScript::class), app(Container::class));
         $this->grid   = $this->setupForm($this->grid);
         $this->grid->simple(handles('antares::brands/' . $model->id . '/email'), ['method' => 'POST'], $model);
-        $notification = app(Notification::class);
-        $this->grid->layout('antares/foundation::brands.partials._email', ['variables' => $notification->getVariables(), 'instructions' => $notification->getInstructions()]);
+
+        $this->grid->layout('antares/foundation::brands.partials._email', $this->getPreparedVariables());
         $this->fieldsets();
         $this->grid->rules($this->rules);
         view()->share('content_class', 'page-email-settings');
@@ -163,6 +164,38 @@ class Email extends FormBuilder implements Presenter
         }
         $view = array_get(self::$defaults, $keyname);
         return ($view instanceof View) ? $view->render() : $view;
+    }
+
+    /**
+     * Returns prepared variables for form.
+     *
+     * @return array
+     */
+    protected function getPreparedVariables() : array {
+        $data = [
+            'variables'     => [],
+            'instructions'  => [],
+        ];
+
+        $data['instructions'] = [
+            'foreach'   => "[[foreach]]\n\t{% for element in [[list]] %}\n\t\t {{ element.attribute }}\n\t{% endfor %}\n[[/foreach]]",
+            'if'        => "[[if]]\n\t{% if [[element.attribute]] == 'foo' %} \n\t\tfoo attribute\n\t{% endif %}\n[[/if]]",
+        ];
+
+        /* @var $variablesService VariablesService */
+        $variablesService = app()->make(VariablesService::class);
+
+        if($moduleVariable = $variablesService->findByModule('foundation')) {
+            $data['variables']['foundation'] = [];
+
+            foreach($moduleVariable->all() as $variable) {
+                $data['variables']['foundation'][] = [
+                    'name' => $variable->getCode()
+                ];
+            }
+        }
+
+        return $data;
     }
 
 }
