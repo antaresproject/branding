@@ -46,8 +46,7 @@ class BrandsPane extends LeftPane
                 ->link(handles("antares::branding/email"))
                 ->title(trans('antares/brands::messages.brand_settings_email'));
 
-        $areas = config('areas.areas');
-
+        $areas     = config('areas.areas');
         $templates = BrandTemplates::where('brand_id', $id)->whereIn('area', array_keys($areas))->get();
 
 

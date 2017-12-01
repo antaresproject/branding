@@ -90,7 +90,6 @@ class Brand extends Twig_Extension
      */
     protected function brandStyles()
     {
-
         $function = function () {
             return '<style data-desc="brand-colors">' .
                     $this->registry()->get('brand.configuration.template.stylesheet') .
@@ -109,6 +108,7 @@ class Brand extends Twig_Extension
     protected function brandComposition()
     {
         $function = function ($name = null) {
+            $memory      = app('antares.memory')->make('primary');
             $composition = $this->registry()->get('brand.configuration.template.composition');
             return !is_null($name) ? $composition == $name : $composition;
         };

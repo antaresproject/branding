@@ -150,6 +150,7 @@ class BrandsServiceProvider extends ModuleServiceProvider
     {
         $baseUrl = basename(url('/'));
         $appUrl  = basename(env('APP_URL'));
+
         if (!str_contains($baseUrl, $appUrl)) {
             $return = app('antares.brand')->default()->first()->toArray();
         } else {
